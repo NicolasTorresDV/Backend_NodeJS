@@ -215,4 +215,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+
+carrito.json
+productos.json
 # End of https://www.toptal.com/developers/gitignore/api/node
