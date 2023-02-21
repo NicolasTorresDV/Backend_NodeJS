@@ -100,11 +100,11 @@ class ProductManager{
     updateProduct(id,data){
 
         this.products = this.getProducts();
-        if (!id || id <= 0) { return "Error Id no valido" }        
-        if (this.products.filter(prod=> prod.id === id).length <= 0) { return "Error no existe producto con ese ID" } 
+        if (!id || id <= 0) { return {message: "Error Id no valido" }}     
+        if (this.products.filter(prod=> prod.id === id).length <= 0) { return {message: "Error no existe producto con ese ID" } } 
 
         if (this.products.filter(prod=> prod.code === data.code && prod.id !== id).length>0)
-        {return "Error Codigo repetido" }
+        {return {message: "Error Codigo repetido" }}
 
         this.products = JSON.parse(fs.readFileSync(this.path.toString(),'utf-8'));
         let updatedProducts = this.products.map(
@@ -116,7 +116,7 @@ class ProductManager{
                 }
             )
         fs.writeFileSync(this.path.toString(), JSON.stringify(updatedProducts));
-        return `Producto ${id} actualizado`
+        return {message: `Producto ${id} actualizado` }
         
     }
 
@@ -127,7 +127,7 @@ class ProductManager{
             return "No se encontró el producto a eliminar"
         }else{
             fs.writeFileSync(this.path.toString(), JSON.stringify(updatedProducts));
-            return `Producto ${id} eliminado`
+            return {message: `Producto ${id} eliminado`}
         }
 
     }
@@ -181,7 +181,7 @@ productsRouter.delete('/:pid', async (req,res) => {
     const { pid } = req.params;
     try {
         let message = await pm.deleteProduct(pid)
-        res.status(200).json({message: message})
+        res.status(200).json({message})
     } catch (error) {
         res.status(500).json({message: error.message});
     }
