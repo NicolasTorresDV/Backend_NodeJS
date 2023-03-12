@@ -1,6 +1,5 @@
-import express, {Router} from "express";
-
-import {ProductManager} from "./products.router.js"
+import ProductManager from "../dao/filesystem/models/ProductManager.js";
+import {Router} from "express";
 import __dirname from "../utils.js";
 
 const router = Router();
@@ -19,6 +18,10 @@ router.get("/realtimeproducts", (req, res) => {
 
 router.get("/productsHandlerWebSockets", (req, res) => {
     res.render("productsHandlerWebSockets", {});
+})
+
+router.get("/chats", (req, res) => {
+    res.render("chats", {});
 })
 
 
